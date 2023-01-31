@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      crossorigin="anonymous"
+    />
+
+  <title>{% block title %}Home{% endblock %}</title>
+  <style>
+    a.custom-card,
+    a.custom-card:hover {
+      color: inherit;
+    }
+  </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbar"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbar">
+        <div class="navbar-nav">
+          <a class="nav-item nav-link" id="home" href="/home" style="padding-right:20px;">Home</a>
+          <a class="nav-item nav-link" id="show" href="/show" style="padding-right:20px;">Shows</a>
+          <a class="nav-item nav-link" id="venue" href="/venue" style="padding-right:20px;">Venues</a>
+          <a class="nav-item nav-link" id="profile" href="/profile" style="padding-right:20px;">Profile</a>
+          <a class="nav-item nav-link" id="newshow" href="/newshow" style="padding-right:20px;">New Show</a>
+          <a class="nav-item nav-link" id="newvenue" href="/newvenue" style="padding-right:20px;">New Venue</a>
+          <a class="nav-item nav-link" id="newadmin" href="/admin/new" style="padding-right:20px;">Create Admin</a>
+          <a class="nav-item nav-link" id="logout" href="/logout" style="padding-right:20px;">Logout</a>
+        </div>
+      </div>
+    </nav>
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %} {% for category, message in messages %} {% if category ==
+    'error' %}
+    <div class="alert alert-danger alter-dismissable fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% else %}
+    <div class="alert alert-success alter-dismissable fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endif %} {% endfor %} {% endif %} {% endwith %}
+
+    <div>
+      <form class="form-inline m-4 my-2 my-lg-2">
+        <input class="form-control col-lg-11 mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+    </div><br>
+<div class="row" style="margin-left: 10px">
+<div class="col md-2"style="margin-left: 5px; margin-right: 5px; margin-bottom: 10px; margin-top: 10px">
+<button type="button" class="btn btn-secondary btn-lg" style="width: 200px;"><h5 class="form-inline">Shows</h5></button><br><br>
+{% for show in show %}
+      <a href="/show/{{show.show_id}}" class="custom-card">
+        <div class="card text-white bg-dark mb-3" style="width: 22.6rem; float: left; margin-right: 7px; margin-bottom: 10px; margin-top: 10px">
+            <img src="data:;base64,{{ show.poster }}" class="d-block w-100" width="120px" height="360px"></img>
+            <div class="card-header">
+              <h5 class="card-title">{{show.showname}}</h5>
+              <button class="card-title btn btn-outline-success btn md" style="width: 150px">Add Show</button>
+            </div>
+            <div class="card-body">
+              <h6 class="card-subtitle mb-2">Rating : {{show.rating}}</h6>
+              <h6 class="card-subtitle mb-2">Tag : {{show.tag}}</h6>
+              <p class="card-text"></p>
+            </div>
+        </div>
+      </a>
+{% endfor %}
+</div>
+<div class="col md-2" style="margin-left: 5px; margin-right: 5px; margin-bottom: 10px; margin-top: 10px">
+<button type="button" class="btn btn-secondary btn-lg" style="width: 200px;"><h5 class="form-inline">Venues</h5></button><br><br>
+{% for venue in venue %}
+      <a href="/venue/{{venue.venue_id}}" class="custom-card">
+        <div class="card text-white bg-dark mb-3" style="width: 22.6rem; float: left; margin-right: 7px; margin-bottom: 10px; margin-top: 10px">
+            <img src="data:;base64,{{ venue.image }}" class="d-block w-100" width="120px" height="220px"></img>
+            
+            <div class="card-header">
+              <h5 class="card-title">{{venue.venuename}}</h5>
+            </div>
+            <div class="card-body">
+              <h6 class="card-subtitle mb-2">Capacity : {{venue.capacity}}</h6>
+              <h6 class="card-subtitle mb-2">Location : {{venue.location}}</h6> 
+              <p class="card-text"></p>
+            </div>
+        </div>
+      </a>
+{% endfor %}
+</div>
+</div>
+<script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+    </body>
+    </html>

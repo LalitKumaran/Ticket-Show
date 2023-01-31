@@ -1,0 +1,18 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content %}
+{% for venue in venue %}
+      <a href="/venue/{{venue.venue_id}}" class="custom-card">
+        <div class="card text-white bg-dark mb-3" style="width: 22.6rem; float: left; margin-right: 7px; margin-bottom: 10px; margin-top: 10px">
+            <img src="data:;base64,{{ venue.image }}" class="d-block w-100" width="120px" height="220px"></img>
+            
+            <div class="card-header">
+              <h5 class="card-title">{{venue.venuename}}</h5>
+            </div>
+            <div class="card-body">
+              <h6 class="card-subtitle mb-2">Capacity : {{venue.capacity}}</h6>
+              <h6 class="card-subtitle mb-2">Location : {{venue.location}}</h6>
+              <p class="card-text"></p>
+            </div>
+        </div>
+      </a>
+{% endfor %}
+{% endblock %}

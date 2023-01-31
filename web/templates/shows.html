@@ -1,0 +1,21 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content %}
+{% for show in show %}
+      <a href="/show/{{show.show_id}}" class="custom-card">
+        <div class="card text-white bg-dark mb-3" style="width: 22.6rem; float: left; margin-right: 7px; margin-bottom: 10px; margin-top: 10px">
+            <img src="data:;base64,{{ show.poster }}" class="d-block w-100" width="120px" height="360px"></img>
+            <div class="card-header">
+              <h5 class="card-title">{{show.showname}}</h5>
+            </div>
+            <div class="card-body">
+              <h6 class="card-subtitle mb-2">Rating : {{show.rating}}</h6>
+              <h6 class="card-subtitle mb-2">Tag : {{show.tag}}</h6>
+              <h6 class="card-subtitle mb-2">Date : {{show.date}}</h6>
+              <h6 class="card-subtitle mb-2">Time : {{show.time}}</h6>
+              <h6 class="card-subtitle mb-2">Venue : {{show.venue}}</h6>
+              <b><h6 class="card-subtitle mb-2">Price : {{show.price}}</h6></b>
+              <p class="card-text"></p>
+            </div>
+        </div>
+      </a>
+{% endfor %}
+{% endblock %}

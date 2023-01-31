@@ -1,0 +1,52 @@
+{% extends 'base.html' %}{% block title %}Profile{% endblock %}{% block content %}
+    <div class="container py-5 h-50">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-md-12 col-xl-4">
+          <div class="card" style="border-radius: 15px; background-color:rgb(236, 227, 227)">
+            <div class="card-body text-center">
+              <h4 class="mb-2">{{user.username}}</h4>
+              <p class="text-muted">{{user.email}}</p>
+              <p class="text-muted">{{user.phone}}</p>
+              <p class="text-muted">{{user.city}}</p>
+              <br>
+            </div>
+          </div>
+  
+        </div>
+      </div>
+    </div>
+
+<h3>Bookings</h3>
+  <div class="table-wrapper-scroll-y my-custom-scrollbar">
+      <div class="row justify-content-center px-3 py-3">
+          <table class="table table-striped">
+              <tbody>
+                  <tr>
+                      <th>Booking ID</th>
+                      <th>Show Name</th>
+                      <th>Date</th>
+                      <th>Time</th>
+                      <th>Venue Name</th>
+                      <th>Location</th>
+                  </tr>
+                  {% for book in booking %} {% if book.user_id==user.user_id %}
+                  {% for show in show %} {% if book.show_id==show.show_id%} 
+                  {% for venue in venue%} {% if venue.venuename==show.venue%}                 
+                  <tr>
+                      <td>{{ book.booking_id }}</td>
+                      <td>{{ show.showname }} </td>
+                      <td>{{ book.seatcount }} </td>
+                        <td>{{ show.date }}</td>
+                        <td>{{ show.time }}</td>
+                        <td>{{ venue.venuename }}</td>
+                        <td>{{ venue.location }}</td>
+                      {% endif %}{% endfor %}
+                      <!--<td><a href="/removebook/{{book.booking_id}}" class="btn btn-light">Remove</a>-->
+                  </tr>
+                  {% endif %} {% endfor %}
+                  {% endif %} {% endfor %}
+              </tbody>
+          </table>
+      </div>
+  </div>
+{% endblock %}

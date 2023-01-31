@@ -1,0 +1,50 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content %}
+
+<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+      <div class="carousel-item">
+        <img class="d-block w-100" src="data:;base64 {{show.poster}}"  width="300px" height="700px" alt="Third slide">
+      </div>
+  </div>
+<div>
+  <div class="table-wrapper-scroll-y my-custom-scrollbar">
+    <div class="row justify-content-center px-3 py-3">
+        <table class="table table-striped table-hover table-dark">
+          <thead>
+            <tr>
+              <th><h4>{{show.showname}}</h4></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                  <th>Date</th>
+                  <td>{{ show.date }}</td>
+                </tr>
+                <tr>
+                  <th>Time </th>
+                  <td>{{ show.time }}</td>
+                </tr>
+                <tr>
+                  <th>Venue </th>
+                  <td>{{ venue.venuename }}</td>
+                </tr>
+                <tr>
+                    <th>Location </th>
+                    <td>{{ venue.location }}</td>
+                  </tr>
+                <tr>
+                    <th> Seats </th>
+                    <td>{{seatcount}}</td>
+                </tr>
+                <tr>
+                    <th>Amount</th>
+                    <td>{{amount}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+  </div>
+  <div class="row justify-content-center px-3 py-3">
+    <a href="/pay/{{show.show_id}},{{seatcount}}" ><button class="btn btn-outline-success btn-lg">Pay</button></a>
+</div>
+
+{% endblock %}
