@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>New Show</title>
+    <title>Update Show</title>
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -174,27 +174,28 @@ button{
         <h3>New Show</h3>
 
         <label for="showname">Show Name</label>
-        <input type="text" value={{show.showname}} placeholder="Show Name" name="showname" id="showname">
+        <input type="text" value="{{show.showname}}" placeholder="Show Name" name="showname" id="showname">
 
         <label for="rating">Rating</label>
-        <input type="text" value={{show.rating}} placeholder="Rating" name="rating" id="rating">
+        <input type="text" value="{{show.rating}}" placeholder="Rating" name="rating" id="rating">
 
         <label for="date">Date</label>
-        <input type="text" placeholder="Date" name="date" id="date">
+        <input type="text" value="{{show.date}}" placeholder="Date" name="date" id="date">
 
         <label for="time">Time</label>
-        <input type="text" placeholder="Time" name="time" id="time">
+        <input type="text" value="{{show.time}}" placeholder="Time" name="time" id="time">
 
         <label for="tag">Tag</label>
         <input type="text" value="{{show.tag}}" placeholder="Tag" name="tag" id="tag">
 
         <label for="price">Price</label>
-        <input type="text" placeholder="Ticket price" name="price" id="price">
+        <input type="text" value="{{show.price}}" placeholder="Ticket price" name="price" id="price">
 
         
-        <label for="venue">Venue</label>
+        <label for="venue" >Venue</label>
         <div class="inputgrp">
-          <select style="color:black;"id="venue" name="venue">
+          <select style="color:black;" id="venue" name="venue" def>
+            <option value="{{show.venue}}">{{show.venue}}</option>
             {% for venue in venue %}
             <option style="color:black;">{{venue.venuename}}</option>
             {% endfor %}
@@ -213,7 +214,7 @@ button{
           <label for="category">Category</label>
           <div class="inputgrp">
             <select style="color:black;"id="category" name="category">
-              <option value="{{show.category}}"></option>
+              <option value="{{show.category}}">{{show.category}}</option>
               <option value="Movie" style="color:black;">Movie</option>
               <option value="Concert" style="color:black;">Concert</option>
               <option value="Comedy" style="color:black;">Comedy</option>
@@ -221,7 +222,7 @@ button{
         </div><br>
 
         <h4>Poster</h4>
-        <input type="file" value="{{show.poster}}" name="poster" id="poster">
+        <input type="file" name="poster" id="poster">
           <label for="poster"></label>
 
             <button type="submit">Add</button>

@@ -1,6 +1,6 @@
-from web import create_app
+from web import createapp
 
-app = create_app()
+app=createapp()
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0',port=12345)

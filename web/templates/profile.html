@@ -26,8 +26,10 @@
                       <th>Show Name</th>
                       <th>Date</th>
                       <th>Time</th>
+                      <th>Seats</th>
                       <th>Venue Name</th>
                       <th>Location</th>
+                      <th>Amount</th>
                   </tr>
                   {% for book in booking %} {% if book.user_id==user.user_id %}
                   {% for show in show %} {% if book.show_id==show.show_id%} 
@@ -40,6 +42,7 @@
                         <td>{{ show.time }}</td>
                         <td>{{ venue.venuename }}</td>
                         <td>{{ venue.location }}</td>
+                        <td>{{ book.amount }}</td>
                       {% endif %}{% endfor %}
                       <!--<td><a href="/removebook/{{book.booking_id}}" class="btn btn-light">Remove</a>-->
                   </tr>

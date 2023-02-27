@@ -233,6 +233,14 @@ def profile():
         book = Booking.query.all()
         show = Show.query.all()
         venue = Venue.query.all()
+        if(request.method=="POST"):
+            search = request.form.get("search")
+            v = Show.query.filter_by(venue=search).first()
+            s = Show.query.filter_by(showname=search).first()
+            if(v):
+                book=Booking.query.filter_by(show_id=v.show_id)
+            elif(s):
+                book=Booking.query.filter_by(show_id=s.show_id)
         return render_template("profile.html",user=alive,booking=book,show=show,venue=venue)
     else:
         return redirect(url_for('views.login'))
@@ -277,7 +285,7 @@ def pay(show_id,seatcount):
             new_book = Booking(booking_id=book_id,show_id=show.show_id, user_id=alive.user_id, seatcount=seatcount,amount=amount)
             #b = Booking.query.filter_by(show_id=show.show_id,user_id=alive.user_id)
             db.session.add(new_book)
-            show.seats-=1
+            show.seats-=seatcount
             db.session.commit()
             flash('Tickets Booked')
         else:
@@ -293,4 +301,91 @@ def viewvenue(venue_id):
         show=Show.query.filter_by(venue=venuename)
         return render_template("shows.html",show=show)
     else:
+        return redirect(url_for('views.login'))
+
+@views.route('/removevenue/<venue_id>', methods=['GET', 'POST'])
+def removevenue(venue_id):
+    if alive != 0:
+        if(alive.user_type=="admin"):
+            venue = Venue.query.get(venue_id)
+            db.session.delete(venue)
+            db.session.commit()
+            flash("Venue Removed")
+        else:
+            flash('Access denied')
+        return redirect(url_for('views.venue'))
+    else:
+        return redirect(url_for('views.login'))
+
+@views.route('/removeshow/<show_id>', methods=['GET', 'POST'])
+def removeshow(show_id):
+    if alive != 0:
+        if(alive.user_type=="admin"):
+            show = Show.query.get(show_id)
+            db.session.delete(show)
+            db.session.commit()
+            flash("Show Removed")
+        else:
+            flash('Access denied')
+        return redirect(url_for('views.show'))
+    else:
+        return redirect(url_for('views.login'))
+
+@views.route('/updatevenue/<venue_id>', methods=['GET', 'POST'])
+def updatevenue(venue_id):
+    if alive != 0:
+        if(alive.user_type=="admin"):
+            venue = Venue.query.filter_by(venue_id=venue_id).first()
+            if request.method == 'POST':
+                venue.venuename = request.form.get('venuename')
+                venue.capacity  = request.form.get('capacity')
+                venue.location = request.form.get('location')
+                venue.type = request.form.get('type')
+                file = request.files['image']
+                data = file.read()
+                if data:
+                    venue.image= base64.b64encode(data).decode('ascii') 
+                db.session.commit()
+                flash("Venue Updated")
+            else:
+                return render_template('./admin/updatevenue.html',venue=venue)
+        else:
+            flash('Access denied')
+        return redirect(url_for('views.venue'))
+    else:
+        return redirect(url_for('views.login'))
+
+@views.route('/updateshow/<show_id>', methods=['GET', 'POST'])
+def updateshow(show_id):
+    if alive != 0:
+        if(alive.user_type=="admin"):
+            show = Show.query.filter_by(show_id=show_id).first()
+            if request.method == 'POST':
+                show.showname = request.form.get('showname')
+                show.rating  = request.form.get('rating')
+                show.date = request.form.get('date')
+                show.time = request.form.get('time')
+                show.tag = request.form.get('tag')
+                show.price = request.form.get('price')
+                v = request.form.get('venue')
+                if(v!=show.venue):
+                    show.venue=v
+                    show.seats = Venue.query.filter_by(venuename=show.venue).first().capacity
+                show.category = request.form.get('category')
+                show.cast = request.form.get("cast")
+                show.lang = request.form.get("lang")
+                show.duration = request.form.get("duration")
+                file = request.files['poster']
+                data = file.read()
+                if data:
+                    show.poster = base64.b64encode(data).decode('ascii') 
+                db.session.commit()
+                flash("Show Updated")
+            else:
+                return render_template('./admin/updateshow.html',show=show)
+        else:
+            flash('Access denied')
+        return redirect(url_for('views.show'))
+    else:
+        flash('Session Expired')
         return redirect(url_for('views.login'))

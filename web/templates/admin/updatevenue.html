@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>New Show</title>
+    <title>New Venue</title>
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -47,11 +47,11 @@
     box-sizing: border-box;
 }
 body{
-    background-color: #080710;
-    background-image: url('https://i.ytimg.com/vi/9sNQFJAb3Ss/maxresdefault.jpg');
+    background-image: url(3.jpg);
     background-size: cover;
     background-attachment: fixed;
     background-repeat: fixed;
+    background-image: url('https://i.ytimg.com/vi/9sNQFJAb3Ss/maxresdefault.jpg');
 }
 .background{
     
@@ -64,12 +64,12 @@ body{
 }
 
 form{
-    height: 1500px;
+    height: 850px;
     width: 400px;
     background-color: rgba(255,255,255,0.13);
     position: absolute;
     transform: translate(-50%,-50%);
-    top: 130%;
+    top: 80%;
     left: 20%;
     border-radius: 10px;
     backdrop-filter: blur(10px);
@@ -127,26 +127,25 @@ button{
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-toggle="collapse"
-      data-target="#navbar"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbar">
-      <div class="navbar-nav">
-        <a class="nav-item nav-link" id="home" href="/home" style="padding-right:20px;">Home</a>
-        <a class="nav-item nav-link" id="show" href="/show" style="padding-right:20px;">Shows</a>
-        <a class="nav-item nav-link" id="venue"  href="/venue" style="padding-right:20px;">Venues</a>
-        <a class="nav-item nav-link" id="profile" href="/profile" style="padding-right:20px;">Profile</a>
-        <a class="nav-item nav-link" id="logout" href="/logout" style="padding-right:20px;">Logout</a>
-      </div>
-    </div>
-  </nav>
-
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbar"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbar">
+          <div class="navbar-nav">
+            <a class="nav-item nav-link" id="home" href="/home" style="padding-right:20px;">Home</a>
+            <a class="nav-item nav-link" id="show" href="/show" style="padding-right:20px;">Shows</a>
+            <a class="nav-item nav-link" id="venue"  href="/venue" style="padding-right:20px;">Venues</a>
+            <a class="nav-item nav-link" id="profile" href="/profile" style="padding-right:20px;">Profile</a>
+            <a class="nav-item nav-link" id="logout" href="/logout" style="padding-right:20px;">Logout</a>
+          </div>
+        </div>
+      </nav>
   {% with messages = get_flashed_messages(with_categories=true) %} {% if
   messages %} {% for category, message in messages %} {% if category ==
   'error' %}
@@ -171,60 +170,32 @@ button{
         <div class="shape"></div>
     </div>
     <form method="POST" enctype="multipart/form-data">
-        <h3>New Show</h3>
+        <h3>Update Venue</h3>
 
-        <label for="showname">Show Name</label>
-        <input type="text" value={{show.showname}} placeholder="Show Name" name="showname" id="showname">
+        <label for="venuename">Venue Name</label>
+        <input type="text" palceholder="Venue Name" value="{{venue.venuename}}" name="venuename" id="venuename">
 
-        <label for="rating">Rating</label>
-        <input type="text" value={{show.rating}} placeholder="Rating" name="rating" id="rating">
+        <label for="capacity">Capacity</label>
+        <input type="text" placeholder="Capacity" value="{{venue.capacity}}" name="capacity" id="capacity">
 
-        <label for="date">Date</label>
-        <input type="text" placeholder="Date" name="date" id="date">
-
-        <label for="time">Time</label>
-        <input type="text" placeholder="Time" name="time" id="time">
-
-        <label for="tag">Tag</label>
-        <input type="text" value="{{show.tag}}" placeholder="Tag" name="tag" id="tag">
-
-        <label for="price">Price</label>
-        <input type="text" placeholder="Ticket price" name="price" id="price">
-
-        
-        <label for="venue">Venue</label>
-        <div class="inputgrp">
-          <select style="color:black;"id="venue" name="venue">
-            {% for venue in venue %}
-            <option style="color:black;">{{venue.venuename}}</option>
-            {% endfor %}
-          </select>
-
-        <label for="cast">Cast</label>
-        <input type="text" value="{{show.cast}}" placeholder="Cast" name="cast" id="cast">
-
-        <label for="lang">Language</label>
-        <input type="text" value="{{show.lang}}" placeholder="Language" name="lang" id="lang">
-
-        <label for="duration">Duration</label>
-        <input type="text" value="{{show.duration}}" placeholder="Duration" name="duration" id="duration">
+        <label for="location">Location</label>
+        <input type="text" placeholder="Location" value="{{venue.location}}"name="location" id="location">
 
         <div>
-          <label for="category">Category</label>
+          <label for="type">Type</label>
           <div class="inputgrp">
-            <select style="color:black;"id="category" name="category">
-              <option value="{{show.category}}"></option>
-              <option value="Movie" style="color:black;">Movie</option>
-              <option value="Concert" style="color:black;">Concert</option>
-              <option value="Comedy" style="color:black;">Comedy</option>
+            <select style="color:black;"id="type" name="type">
+              <option value="1" style="color:black;">Theatre</option>
+              <option value="2" style="color:black;">Auditorium</option>
+              <option value="3" style="color:black;">Stadium</option>
             </select>
         </div><br>
+        <h4>Image</h4>
+        <input type="file" value="{{venue.image}}" name="image" id="image">
+          <label for="image"></label>
 
-        <h4>Poster</h4>
-        <input type="file" value="{{show.poster}}" name="poster" id="poster">
-          <label for="poster"></label>
-
-            <button type="submit">Add</button>
+        <button type="submit">Update</button>
+    
     </form>
 </body>
 </html>

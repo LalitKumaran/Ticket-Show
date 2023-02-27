@@ -127,7 +127,25 @@ button{
 </head>
 
 <body>
-
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbar"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link" id="home" href="/home" style="padding-right:20px;">Home</a>
+        <a class="nav-item nav-link" id="show" href="/show" style="padding-right:20px;">Shows</a>
+        <a class="nav-item nav-link" id="venue"  href="/venue" style="padding-right:20px;">Venues</a>
+        <a class="nav-item nav-link" id="profile" href="/profile" style="padding-right:20px;">Profile</a>
+        <a class="nav-item nav-link" id="logout" href="/logout" style="padding-right:20px;">Logout</a>
+      </div>
+    </div>
+  </nav>
   {% with messages = get_flashed_messages(with_categories=true) %} {% if
   messages %} {% for category, message in messages %} {% if category ==
   'error' %}
